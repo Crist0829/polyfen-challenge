@@ -7,7 +7,7 @@ import { ProspectsModule } from './prospects/prospects.module';
   imports: [ ConfigModule.forRoot({
     isGlobal: true,
   }), 
-  MongooseModule.forRoot(`mongodb://localhost:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE}`, {
+  MongooseModule.forRoot(`mongodb://mongodb:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE}`, {
   }),
   ProspectsModule
 ],

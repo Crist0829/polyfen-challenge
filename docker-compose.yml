@@ -8,7 +8,37 @@ services:
     volumes:
       - mongodb_data:/data/db
       - mongodb_config:/data/configdb
+    networks:
+      - polyfen-net
+
+  app_backend:
+    image : node:latest
+    container_name: app-back
+    ports: 
+    - "3000:3000"
+    volumes:
+      - ./:/home/app
+    command: bash -c "cd /home/app && npm install && npm run start:dev"
+    networks:
+      - polyfen-net
+
+  app_front_end:
+    image : node:latest
+    container_name: app-front
+    ports: 
+    - "5173:5173"
+    expose:
+      - 5173
+    volumes:
+      - ./front:/home/app
+    command: bash -c "cd /home/app && npm install && npm run dev"
+    networks:
+      - polyfen-net
 
 volumes:
   mongodb_data:
   mongodb_config:
+
+networks: 
+  polyfen-net:
+    driver : bridge
